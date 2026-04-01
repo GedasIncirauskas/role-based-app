@@ -1,13 +1,16 @@
-import { useAuthStore } from "../../store/auth.store";
+import { useAuth } from "../../hooks/useAuth";
+import { useRole } from "../../hooks/useRole";
 
 export function DashboardPage() {
-  const user = useAuthStore((s) => s.user);
+  const { user } = useAuth();
+  const { isAdmin } = useRole();
 
   return (
     <div>
       <h1>Dashboard</h1>
-      <p>User: {user?.email}</p>
-      <p>Role: {user?.role}</p>
+      <p>Welcome, {user?.email}</p>
+
+      {isAdmin && <p>You have ADMIN privileges</p>}
     </div>
   );
 }
